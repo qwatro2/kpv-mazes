@@ -17,10 +17,6 @@ public class PrimMazeGenerator implements MazeGenerator, Randomizable<PrimMazeGe
         Cell[][] cells = makeCells(height, width);
 
         int numberOfCells = height * width;
-        boolean[][] startGrid = new boolean[numberOfCells][numberOfCells];
-
-        initializeGrid(height, width, startGrid);
-
 
         boolean[][] grid = new boolean[numberOfCells][numberOfCells];
         initializeEmptyGrid(height, width, grid);
