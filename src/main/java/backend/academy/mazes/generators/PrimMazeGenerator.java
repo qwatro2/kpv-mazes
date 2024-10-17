@@ -67,23 +67,6 @@ public class PrimMazeGenerator implements MazeGenerator, Randomizable<PrimMazeGe
         return cells;
     }
 
-    private void initializeGrid(int height, int width, boolean[][] grid) {
-        initializeEmptyGrid(height, width, grid);
-
-        for (int row = 0; row < height; ++row) {
-            for (int col = 0; col < width; ++col) {
-                if (col != width - 1) {
-                    grid[row * width + col][row * width + (col + 1)] = true;
-                    grid[row * width + (col + 1)][row * width + col] = true;
-                }
-                if (row != height - 1) {
-                    grid[row * width + col][(row + 1) * width + col] = true;
-                    grid[(row + 1) * width + col][row * width + col] = true;
-                }
-            }
-        }
-    }
-
     private void initializeEmptyGrid(int height, int width, boolean[][] grid) {
         for (int i = 0; i < height * width; ++i) {
             for (int j = 0; j < height * width; ++j) {
