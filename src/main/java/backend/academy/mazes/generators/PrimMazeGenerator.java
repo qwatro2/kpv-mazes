@@ -121,11 +121,6 @@ public class PrimMazeGenerator implements MazeGenerator, Randomizable<PrimMazeGe
     }
 
     @Override
-    public Random getRandom() {
-        return random;
-    }
-
-    @Override
     public PrimMazeGenerator setRandom(Random random) {
         this.random = random;
         return this;
