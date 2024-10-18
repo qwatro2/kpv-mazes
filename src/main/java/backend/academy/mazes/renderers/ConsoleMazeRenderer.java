@@ -62,6 +62,9 @@ public class ConsoleMazeRenderer implements MazeRenderer {
 
     @Override
     public String render(Maze maze, List<Coordinate> path, Coordinate start, Coordinate end) {
+        if (path == null) {
+            return "Path not found!";
+        }
         return render(maze, path::contains, start, end);
     }
 

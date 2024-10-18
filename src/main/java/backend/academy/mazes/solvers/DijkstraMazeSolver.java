@@ -19,6 +19,11 @@ public class DijkstraMazeSolver implements MazeSolver, ParentsPathConverter {
 
         while (visited.stream().anyMatch((Boolean b) -> !b)) {
             int index = findNotVisitedIndexWithSmallestLabel(visited, labels);
+
+            if (index == -1) {
+                break;
+            }
+
             for (int col = 0; col < numberOfCells; ++col) {
                 if (maze.grid()[index][col] && !visited.get(col)) {
                     int newPathLength = labels.get(index) + 1;
@@ -29,6 +34,10 @@ public class DijkstraMazeSolver implements MazeSolver, ParentsPathConverter {
                 }
             }
             visited.set(index, true);
+        }
+
+        if (!visited.get(coordinateToIndex(end, maze.width()))) {
+            return null;
         }
 
         return parentsToPath(start, end, maze.width(), parents);

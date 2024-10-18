@@ -11,7 +11,11 @@ public interface ParentsPathConverter extends CoordinateIndexConverter {
         int endIndex = coordinateToIndex(end, width);
         while (endIndex != startIndex) {
             result.add(indexToCoordinate(endIndex, width));
-            endIndex = parents.get(endIndex);
+            Integer endIndexParent = parents.get(endIndex);
+            if (endIndexParent == null) {
+                return null;
+            }
+            endIndex = endIndexParent;
         }
         result.add(start);
         return result.reversed();
