@@ -20,7 +20,7 @@ public class DijkstraMazeSolver implements MazeSolver, Converter {
         List<Boolean> visited = initializeVisited(numberOfCells);
 
         while (visited.stream().anyMatch((Boolean b) -> !b)) {
-            int index = findNotVisitedIndexWithSmallestLabel(maze.grid(), visited, labels);
+            int index = findNotVisitedIndexWithSmallestLabel(visited, labels);
             for (int col = 0; col < numberOfCells; ++col) {
                 if (maze.grid()[index][col] && !visited.get(col)) {
                     int newPathLength = labels.get(index) + 1;
@@ -69,7 +69,7 @@ public class DijkstraMazeSolver implements MazeSolver, Converter {
         return result;
     }
 
-    private int findNotVisitedIndexWithSmallestLabel(boolean[][] grid, List<Boolean> visited, List<Integer> labels) {
+    private int findNotVisitedIndexWithSmallestLabel(List<Boolean> visited, List<Integer> labels) {
         int resultIndex = -1;
         int currentMinimum = Integer.MAX_VALUE;
 
