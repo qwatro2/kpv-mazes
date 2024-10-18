@@ -28,8 +28,8 @@ public class ConsoleMazeRenderer implements MazeRenderer {
     public static MazeRenderer getColorfulMazeRenderer() {
         return new ConsoleMazeRenderer("⬜", "⬜", "⬜", "⬛",
             "⬛", "\uD83D\uDFE8", "\uD83D\uDFE8",
-            "\uD83C\uDD70\uFE0F", "\uD83C\uDD70\uFE0F",
-            "\uD83C\uDD71\uFE0F", "\uD83C\uDD71\uFE0F");
+            "\uD83C\uDD70️", "\uD83C\uDD70️",
+            "\uD83C\uDD71️", "\uD83C\uDD71️");
     }
 
     private ConsoleMazeRenderer(String cross, String horizontalWall, String verticalWall,
