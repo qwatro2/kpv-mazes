@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface MazeRenderer {
     String render(Maze maze);
-    String render(Maze maze, List<Coordinate> path);
+    String render(Maze maze, Coordinate start, Coordinate end);
+    String render(Maze maze, List<Coordinate> path, Coordinate start, Coordinate end);
 }

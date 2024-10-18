@@ -52,25 +52,29 @@ public class ConsoleMazeRenderer implements MazeRenderer {
 
     @Override
     public String render(Maze maze) {
-        return render(maze, (Coordinate _) -> false, null);
+        return render(maze, (Coordinate _) -> false, null, null);
     }
 
     @Override
-    public String render(Maze maze, List<Coordinate> path) {
-        return render(maze, path::contains, path);
+    public String render(Maze maze, Coordinate start, Coordinate end) {
+        return render(maze, (Coordinate _) -> false, start, end);
     }
 
-    private String render(Maze maze, Function<Coordinate, Boolean> pathPredicate, List<Coordinate> path) {
+    @Override
+    public String render(Maze maze, List<Coordinate> path, Coordinate start, Coordinate end) {
+        return render(maze, path::contains, start, end);
+    }
+
+    private String render(Maze maze, Function<Coordinate, Boolean> pathPredicate,
+        Coordinate start, Coordinate end) {
         StringBuilder sb = new StringBuilder();
 
         boolean startNotMarked = true;
         boolean endNotMarked = true;
-        Coordinate start = path != null ? path.getFirst() : null;
-        Coordinate end = path != null ? path.getLast() : null;
 
         sb.append(cross);
         for (int col = 0; col < maze.width(); ++col) {
-            if (path != null) {
+            if (start != null) {
                 if (startNotMarked && start.col() == col && start.row() == 0) {
                     sb.append(horizontalStartPath);
                     startNotMarked = false;
@@ -90,7 +94,7 @@ public class ConsoleMazeRenderer implements MazeRenderer {
         boolean[][] grid = maze.grid();
 
         for (int row = 0; row < maze.height(); ++row) {
-            if (path != null) {
+            if (start != null) {
                 if (startNotMarked && start.row() == row && start.col() == 0) {
                     sb.append(verticalStartPath);
                     startNotMarked = false;
@@ -108,7 +112,7 @@ public class ConsoleMazeRenderer implements MazeRenderer {
                 sb.append(pathPredicate.apply(new Coordinate(row, col)) ? horizontalPath : horizontalPassage);
 
                 if (col == maze.width() - 1) {
-                    if (path != null) {
+                    if (start != null) {
                         if (startNotMarked && start.row() == row && start.col() == maze.width() - 1) {
                             sb.append(verticalStartPath);
                             startNotMarked = false;
@@ -132,7 +136,7 @@ public class ConsoleMazeRenderer implements MazeRenderer {
             sb.append(cross);
             for (int col = 0; col < maze.width(); ++col) {
                 if (row == maze.height() - 1) {
-                    if (path != null) {
+                    if (start != null) {
                         if (startNotMarked && start.col() == col && start.row() == maze.height() - 1) {
                             sb.append(horizontalStartPath);
                             startNotMarked = false;
