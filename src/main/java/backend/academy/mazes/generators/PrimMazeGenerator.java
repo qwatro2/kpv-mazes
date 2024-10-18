@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PrimMazeGenerator extends AbstractMazeGenerationInitializer
+public class PrimMazeGenerator extends AbstractMazeGenerator
     implements MazeGenerator, Randomizable<PrimMazeGenerator> {
     private Random random;
 
