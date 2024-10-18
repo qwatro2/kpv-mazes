@@ -14,9 +14,7 @@ public class DijkstraMazeSolver implements MazeSolver, ParentsPathConverter {
 
         List<Integer> labels = initializeLabels(numberOfCells);
         labels.set(coordinateToIndex(start, maze.width()), 0);
-
         List<Integer> parents = initializeParents(numberOfCells);
-
         List<Boolean> visited = initializeVisited(numberOfCells);
 
         while (visited.stream().anyMatch((Boolean b) -> !b)) {
@@ -73,6 +71,4 @@ public class DijkstraMazeSolver implements MazeSolver, ParentsPathConverter {
 
         return resultIndex;
     }
-
-
 }
