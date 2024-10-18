@@ -29,17 +29,23 @@ public abstract class AbstractMazeGenerator {
         return coordinate.row() * width + coordinate.col();
     }
 
-    protected List<Edge> getEdgesByGrid(int height, int width, boolean[][] grid) {
-        int numberOfCells = height * width;
+    protected List<Edge> getBaseEdges(int height, int width) {
         List<Edge> result = new ArrayList<>();
 
-        for (int fromIndex = 0; fromIndex < numberOfCells; ++fromIndex) {
-            for (int toIndex = fromIndex + 1; toIndex < numberOfCells; ++toIndex) {
-                if (grid[fromIndex][toIndex]) {
-                    Coordinate from = new Coordinate(fromIndex / width, fromIndex % width);
-                    Coordinate to = new Coordinate(toIndex / width, toIndex % width);
-                    result.add(new Edge(from, to));
-                    result.add(new Edge(to, from));
+        for (int row = 0; row < height; ++row) {
+            for (int col = 0; col < width; ++col) {
+                Coordinate currentCoordinate = new Coordinate(row, col);
+                if (row != 0) {
+                    result.add(new Edge(currentCoordinate, new Coordinate(row - 1, col)));
+                }
+                if (row != height - 1) {
+                    result.add(new Edge(currentCoordinate, new Coordinate(row + 1, col)));
+                }
+                if (col != 0) {
+                    result.add(new Edge(currentCoordinate, new Coordinate(row, col - 1)));
+                }
+                if (col != width - 1) {
+                    result.add(new Edge(currentCoordinate, new Coordinate(row, col + 1)));
                 }
             }
         }
@@ -48,7 +54,8 @@ public abstract class AbstractMazeGenerator {
     }
 
     protected boolean[][] getGridByEdges(int height, int width, List<Edge> edges) {
-        boolean[][] grid = new boolean[height][width];
+        int numberOfCells = height * width;
+        boolean[][] grid = new boolean[numberOfCells][numberOfCells];
         initializeEmptyGrid(height, width, grid);
 
         for (Edge edge : edges) {
