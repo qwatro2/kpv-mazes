@@ -44,7 +44,8 @@ public class ColorfulMazeRenderer implements MazeRenderer {
                 }
 
                 boolean checkRightCell = grid[row * maze.width() + col][row * maze.width() + col + 1];
-                sb.append(checkRightCell ? (pathPredicate.apply(new Coordinate(row, col)) ? path : passage) : wall);
+                sb.append(checkRightCell ? (pathPredicate.apply(new Coordinate(row, col)) &&
+                    pathPredicate.apply(new Coordinate(row, col + 1)) ? path : passage) : wall);
             }
             sb.append('\n');
             sb.append(wall);
@@ -56,7 +57,8 @@ public class ColorfulMazeRenderer implements MazeRenderer {
                 }
 
                 boolean checkBottomCell = grid[row * maze.width() + col][(row + 1) * maze.width() + col];
-                sb.append(checkBottomCell ? (pathPredicate.apply(new Coordinate(row, col)) ? path : passage) : wall);
+                sb.append(checkBottomCell ? (pathPredicate.apply(new Coordinate(row, col)) &&
+                    pathPredicate.apply(new Coordinate(row + 1, col)) ? path : passage) : wall);
                 sb.append(wall);
             }
             sb.append('\n');
