@@ -22,7 +22,7 @@ public class PlusMinusMazeRenderer implements MazeRenderer {
         String verticalWall = "|";
         String horizontalPassage = "  ";
         String verticalPassage = " ";
-        String horizontalPath = " *";
+        String horizontalPath = "**";
         String verticalPath = "*";
 
         StringBuilder sb = new StringBuilder();
