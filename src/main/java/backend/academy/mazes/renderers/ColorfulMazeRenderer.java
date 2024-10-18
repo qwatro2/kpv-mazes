@@ -6,10 +6,6 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ColorfulMazeRenderer implements MazeRenderer {
-    private final String wall = "⬜";
-    private final String passage = "⬛";
-    private final String path = "\uD83D\uDFE8";
-
     @Override
     public String render(Maze maze) {
         return render(maze, (Coordinate _) -> false);
@@ -21,9 +17,12 @@ public class ColorfulMazeRenderer implements MazeRenderer {
     }
 
     private String render(Maze maze, Function<Coordinate, Boolean> pathPredicate) {
+        String wall = "⬜";
+        String passage = "⬛";
+        String path = "\uD83D\uDFE8";
+
         StringBuilder sb = new StringBuilder();
 
-        // print top wall
         sb.append(wall);
         for (int col = 0; col < maze.width(); ++col) {
             sb.append(wall);
