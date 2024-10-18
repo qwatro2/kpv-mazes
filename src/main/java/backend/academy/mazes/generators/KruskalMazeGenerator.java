@@ -2,7 +2,6 @@ package backend.academy.mazes.generators;
 
 import backend.academy.mazes.commons.Randomizable;
 import backend.academy.mazes.entities.Cell;
-import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Edge;
 import backend.academy.mazes.entities.Maze;
 import java.util.ArrayList;
