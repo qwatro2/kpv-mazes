@@ -3,7 +3,6 @@ package backend.academy.mazes.solvers;
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Maze;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class BfsMazeSolver  implements MazeSolver {
