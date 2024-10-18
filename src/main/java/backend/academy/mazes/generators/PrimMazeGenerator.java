@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PrimMazeGenerationInitializer extends AbstractMazeGenerationInitializer
-    implements MazeGenerator, Randomizable<PrimMazeGenerationInitializer> {
+public class PrimMazeGenerator extends AbstractMazeGenerationInitializer
+    implements MazeGenerator, Randomizable<PrimMazeGenerator> {
     private Random random;
 
     @Override
@@ -84,7 +84,7 @@ public class PrimMazeGenerationInitializer extends AbstractMazeGenerationInitial
     }
 
     @Override
-    public PrimMazeGenerationInitializer setRandom(Random random) {
+    public PrimMazeGenerator setRandom(Random random) {
         this.random = random;
         return this;
     }
