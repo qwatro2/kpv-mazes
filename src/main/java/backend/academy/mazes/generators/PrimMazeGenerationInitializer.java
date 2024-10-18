@@ -9,15 +9,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class PrimMazeGenerator implements MazeGenerator, Randomizable<PrimMazeGenerator> {
+public class PrimMazeGenerationInitializer extends AbstractMazeGenerationInitializer
+    implements MazeGenerator, Randomizable<PrimMazeGenerationInitializer> {
     private Random random;
 
     @Override
     public Maze generate(int height, int width) {
         Cell[][] cells = makeCells(height, width);
-
         int numberOfCells = height * width;
-
         boolean[][] grid = new boolean[numberOfCells][numberOfCells];
         initializeEmptyGrid(height, width, grid);
 
@@ -57,31 +56,16 @@ public class PrimMazeGenerator implements MazeGenerator, Randomizable<PrimMazeGe
         return new Maze(height, width, cells, grid);
     }
 
-    private Cell[][] makeCells(int height, int width) {
-        Cell[][] cells = new Cell[height][width];
-        for (int row = 0; row < height; ++row) {
-            for (int col = 0; col < width; ++col) {
-                cells[row][col] = new Cell(row, col);
-            }
-        }
-        return cells;
-    }
-
-    private void initializeEmptyGrid(int height, int width, boolean[][] grid) {
-        for (int i = 0; i < height * width; ++i) {
-            for (int j = 0; j < height * width; ++j) {
-                grid[i][j] = false;
-            }
-        }
-    }
-
     private Coordinate getRandomCoordinates(int height, int width) {
         int row = random.nextInt(height);
         int col = random.nextInt(width);
         return new Coordinate(row, col);
     }
 
-    private void addEdgesToNotVisitedCells(int height, int width, boolean[][] visited, List<Edge> edgesToCheck, Coordinate cellCoordinate) {
+    private void addEdgesToNotVisitedCells(
+        int height, int width, boolean[][] visited,
+        List<Edge> edgesToCheck, Coordinate cellCoordinate
+    ) {
         int row = cellCoordinate.row();
         int col = cellCoordinate.col();
 
@@ -100,7 +84,7 @@ public class PrimMazeGenerator implements MazeGenerator, Randomizable<PrimMazeGe
     }
 
     @Override
-    public PrimMazeGenerator setRandom(Random random) {
+    public PrimMazeGenerationInitializer setRandom(Random random) {
         this.random = random;
         return this;
     }
