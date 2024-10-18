@@ -1,15 +1,16 @@
 package backend.academy.mazes.solvers;
 
+import backend.academy.mazes.commons.Converter;
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Maze;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BfsMazeSolver  implements MazeSolver {
+public class BfsMazeSolver  implements MazeSolver, Converter {
     @Override
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
         int numberOfCells = maze.height() * maze.width();
-        int startIndex = coordinateToIndex(start, maze);
+        int startIndex = coordinateToIndex(start, maze.width());
         List<Integer> queue = new ArrayList<>();
         queue.add(startIndex);
 
@@ -37,21 +38,13 @@ public class BfsMazeSolver  implements MazeSolver {
         }
 
         List<Coordinate> result = new ArrayList<>();
-        int endIndex = coordinateToIndex(end, maze);
+        int endIndex = coordinateToIndex(end, maze.width());
         while (endIndex != startIndex) {
-            result.add(indexToCoordinate(endIndex, maze));
+            result.add(indexToCoordinate(endIndex, maze.width()));
             endIndex = parents.get(endIndex);
         }
         result.add(start);
 
         return result.reversed();
-    }
-
-    private int coordinateToIndex(Coordinate coordinate, Maze maze) {
-        return coordinate.row() * maze.width() + coordinate.col();
-    }
-
-    private Coordinate indexToCoordinate(int index, Maze maze) {
-        return new Coordinate(index / maze.width(), index % maze.width());
     }
 }

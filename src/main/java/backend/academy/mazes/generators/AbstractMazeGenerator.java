@@ -1,12 +1,13 @@
 package backend.academy.mazes.generators;
 
+import backend.academy.mazes.commons.Converter;
 import backend.academy.mazes.entities.Cell;
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Edge;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractMazeGenerator {
+public abstract class AbstractMazeGenerator implements Converter {
     protected Cell[][] makeCells(int height, int width) {
         Cell[][] cells = new Cell[height][width];
         for (int row = 0; row < height; ++row) {
@@ -23,10 +24,6 @@ public abstract class AbstractMazeGenerator {
                 grid[i][j] = false;
             }
         }
-    }
-
-    protected int coordinateToIndex(Coordinate coordinate, int width) {
-        return coordinate.row() * width + coordinate.col();
     }
 
     protected List<Edge> getBaseEdges(int height, int width) {
