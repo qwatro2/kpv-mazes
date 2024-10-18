@@ -1,13 +1,13 @@
 package backend.academy.mazes.generators;
 
-import backend.academy.mazes.commons.Converter;
+import backend.academy.mazes.commons.CoordinateIndexConverter;
 import backend.academy.mazes.entities.Cell;
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Edge;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractMazeGenerator implements Converter {
+public abstract class AbstractMazeGenerator implements CoordinateIndexConverter {
     protected Cell[][] makeCells(int height, int width) {
         Cell[][] cells = new Cell[height][width];
         for (int row = 0; row < height; ++row) {

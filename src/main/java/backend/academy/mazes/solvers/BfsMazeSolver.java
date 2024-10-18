@@ -1,12 +1,12 @@
 package backend.academy.mazes.solvers;
 
-import backend.academy.mazes.commons.Converter;
+import backend.academy.mazes.commons.ParentsPathConverter;
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Maze;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BfsMazeSolver  implements MazeSolver, Converter {
+public class BfsMazeSolver  implements MazeSolver, ParentsPathConverter {
     @Override
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
         int numberOfCells = maze.height() * maze.width();
@@ -37,14 +37,6 @@ public class BfsMazeSolver  implements MazeSolver, Converter {
             }
         }
 
-        List<Coordinate> result = new ArrayList<>();
-        int endIndex = coordinateToIndex(end, maze.width());
-        while (endIndex != startIndex) {
-            result.add(indexToCoordinate(endIndex, maze.width()));
-            endIndex = parents.get(endIndex);
-        }
-        result.add(start);
-
-        return result.reversed();
+        return parentsToPath(start, end, maze.width(), parents);
     }
 }

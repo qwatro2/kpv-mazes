@@ -2,7 +2,7 @@ package backend.academy.mazes.commons;
 
 import backend.academy.mazes.entities.Coordinate;
 
-public interface Converter {
+public interface CoordinateIndexConverter {
     default int coordinateToIndex(Coordinate coordinate, int width) {
         return coordinate.row() * width + coordinate.col();
     }

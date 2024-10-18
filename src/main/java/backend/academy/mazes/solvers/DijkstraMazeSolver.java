@@ -1,12 +1,12 @@
 package backend.academy.mazes.solvers;
 
-import backend.academy.mazes.commons.Converter;
+import backend.academy.mazes.commons.ParentsPathConverter;
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Maze;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DijkstraMazeSolver implements MazeSolver, Converter {
+public class DijkstraMazeSolver implements MazeSolver, ParentsPathConverter {
 
     @Override
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
@@ -33,16 +33,7 @@ public class DijkstraMazeSolver implements MazeSolver, Converter {
             visited.set(index, true);
         }
 
-        List<Coordinate> result = new ArrayList<>();
-        int startIndex = coordinateToIndex(start, maze.width());
-        int endIndex = coordinateToIndex(end, maze.width());
-        while (endIndex != startIndex) {
-            result.add(indexToCoordinate(endIndex, maze.width()));
-            endIndex = parents.get(endIndex);
-        }
-        result.add(start);
-
-        return result.reversed();
+        return parentsToPath(start, end, maze.width(), parents);
     }
 
     private List<Integer> initializeLabels(int size) {
