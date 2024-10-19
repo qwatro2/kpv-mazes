@@ -2,13 +2,10 @@ package backend.academy.mazes.receivers;
 
 import backend.academy.mazes.commons.Printing;
 import backend.academy.mazes.commons.Reading;
-import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Direction;
 import backend.academy.mazes.entities.GeneratorType;
 import backend.academy.mazes.entities.RendererType;
 import backend.academy.mazes.entities.SolverType;
-import backend.academy.mazes.generators.MazeGenerator;
-import backend.academy.mazes.renderers.MazeRenderer;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
