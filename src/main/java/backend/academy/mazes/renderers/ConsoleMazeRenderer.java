@@ -4,7 +4,7 @@ import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Maze;
 
 import java.util.List;
-import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class ConsoleMazeRenderer implements MazeRenderer {
     private final String cross;
@@ -68,7 +68,7 @@ public class ConsoleMazeRenderer implements MazeRenderer {
         return render(maze, path::contains, start, end);
     }
 
-    private String render(Maze maze, Function<Coordinate, Boolean> pathPredicate,
+    private String render(Maze maze, Predicate<Coordinate> pathPredicate,
         Coordinate start, Coordinate end) {
         StringBuilder sb = new StringBuilder();
 
@@ -112,7 +112,7 @@ public class ConsoleMazeRenderer implements MazeRenderer {
             }
 
             for (int col = 0; col < maze.width(); ++col) {
-                sb.append(pathPredicate.apply(new Coordinate(row, col)) ? horizontalPath : horizontalPassage);
+                sb.append(pathPredicate.test(new Coordinate(row, col)) ? horizontalPath : horizontalPassage);
 
                 if (col == maze.width() - 1) {
                     if (start != null) {
@@ -132,8 +132,8 @@ public class ConsoleMazeRenderer implements MazeRenderer {
                 }
 
                 boolean checkRightCell = grid[row * maze.width() + col][row * maze.width() + col + 1];
-                sb.append(checkRightCell ? (pathPredicate.apply(new Coordinate(row, col)) &&
-                        pathPredicate.apply(new Coordinate(row, col + 1)) ? verticalPath : verticalPassage) : verticalWall);
+                sb.append(checkRightCell ? (pathPredicate.test(new Coordinate(row, col)) &&
+                        pathPredicate.test(new Coordinate(row, col + 1)) ? verticalPath : verticalPassage) : verticalWall);
             }
             sb.append('\n');
             sb.append(cross);
@@ -157,8 +157,8 @@ public class ConsoleMazeRenderer implements MazeRenderer {
                 }
 
                 boolean checkBottomCell = grid[row * maze.width() + col][(row + 1) * maze.width() + col];
-                sb.append(checkBottomCell ? (pathPredicate.apply(new Coordinate(row, col)) &&
-                        pathPredicate.apply(new Coordinate(row + 1, col)) ? horizontalPath : horizontalPassage) : horizontalWall);
+                sb.append(checkBottomCell ? (pathPredicate.test(new Coordinate(row, col)) &&
+                        pathPredicate.test(new Coordinate(row + 1, col)) ? horizontalPath : horizontalPassage) : horizontalWall);
                 sb.append(cross);
             }
             sb.append('\n');
