@@ -4,13 +4,19 @@ import backend.academy.mazes.entities.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ParentsPathConverter extends CoordinateIndexConverter {
-    default List<Coordinate> parentsToPath(Coordinate start, Coordinate end, int width, List<Integer> parents) {
+public class ParentsPathConverter {
+    private final CoordinateIndexConverter ciConverter;
+
+    public ParentsPathConverter(CoordinateIndexConverter ciConverter) {
+        this.ciConverter = ciConverter;
+    }
+
+    public List<Coordinate> parentsToPath(Coordinate start, Coordinate end, int width, List<Integer> parents) {
         List<Coordinate> result = new ArrayList<>();
-        int startIndex = coordinateToIndex(start, width);
-        int endIndex = coordinateToIndex(end, width);
+        int startIndex = this.ciConverter.coordinateToIndex(start, width);
+        int endIndex = this.ciConverter.coordinateToIndex(end, width);
         while (endIndex != startIndex) {
-            result.add(indexToCoordinate(endIndex, width));
+            result.add(this.ciConverter.indexToCoordinate(endIndex, width));
             Integer endIndexParent = parents.get(endIndex);
             if (endIndexParent == null) {
                 return null;

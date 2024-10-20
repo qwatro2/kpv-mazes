@@ -2,12 +2,12 @@ package backend.academy.mazes.commons;
 
 import backend.academy.mazes.entities.Coordinate;
 
-public interface CoordinateIndexConverter {
-    default int coordinateToIndex(Coordinate coordinate, int width) {
+public class CoordinateIndexConverter {
+    public int coordinateToIndex(Coordinate coordinate, int width) {
         return coordinate.row() * width + coordinate.col();
     }
 
-    default Coordinate indexToCoordinate(int index, int width) {
+    public Coordinate indexToCoordinate(int index, int width) {
         return new Coordinate(index / width, index % width);
     }
 }

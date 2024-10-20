@@ -1,19 +1,27 @@
 package backend.academy.mazes.solvers;
 
+import backend.academy.mazes.commons.CoordinateIndexConverter;
 import backend.academy.mazes.commons.ParentsPathConverter;
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Maze;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DijkstraMazeSolver implements MazeSolver, ParentsPathConverter {
+public class DijkstraMazeSolver implements MazeSolver {
+    private final CoordinateIndexConverter ciConverter;
+    private final ParentsPathConverter ppConverter;
+
+    public DijkstraMazeSolver(CoordinateIndexConverter ciConverter, ParentsPathConverter ppConverter) {
+        this.ciConverter = ciConverter;
+        this.ppConverter = ppConverter;
+    }
 
     @Override
     public List<Coordinate> solve(Maze maze, Coordinate start, Coordinate end) {
         int numberOfCells = maze.height() * maze.width();
 
         List<Integer> labels = initializeLabels(numberOfCells);
-        labels.set(coordinateToIndex(start, maze.width()), 0);
+        labels.set(ciConverter.coordinateToIndex(start, maze.width()), 0);
         List<Integer> parents = initializeParents(numberOfCells);
         List<Boolean> visited = initializeVisited(numberOfCells);
 
@@ -36,11 +44,11 @@ public class DijkstraMazeSolver implements MazeSolver, ParentsPathConverter {
             visited.set(index, true);
         }
 
-        if (!visited.get(coordinateToIndex(end, maze.width()))) {
+        if (!visited.get(ciConverter.coordinateToIndex(end, maze.width()))) {
             return null;
         }
 
-        return parentsToPath(start, end, maze.width(), parents);
+        return ppConverter.parentsToPath(start, end, maze.width(), parents);
     }
 
     private List<Integer> initializeLabels(int size) {
