@@ -1,4 +1,4 @@
-package backend.academy.mazes.receivers;
+package backend.academy.mazes.readers;
 
 import backend.academy.mazes.commons.Printing;
 import backend.academy.mazes.commons.Reading;
