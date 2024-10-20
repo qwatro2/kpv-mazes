@@ -80,11 +80,11 @@ public class ConsoleReader implements Reader, Reading<ConsoleReader>, Printing<C
         println(prompt);
         println("""
             [1] North           +---+---+---+
-            [2] North-East      | NW| N | NE|
+            [2] North-East      | NW| N |NE |
             [3] East            +---+---+---+
             [4] South-East      | W | X | E |
             [5] South           +---+---+---+
-            [6] South-West      | SW| S | SE|
+            [6] South-West      | SW| S |SE |
             [7] West            +---+---+---+
             [8] North-West
             [other] Random""");
