@@ -7,7 +7,7 @@ import backend.academy.mazes.entities.Edge;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractMazeGenerator implements CoordinateIndexConverter {
+public abstract class AbstractMazeGenerator {
     protected Cell[][] makeCells(int height, int width) {
         Cell[][] cells = new Cell[height][width];
         for (int row = 0; row < height; ++row) {
@@ -51,13 +51,14 @@ public abstract class AbstractMazeGenerator implements CoordinateIndexConverter 
     }
 
     protected boolean[][] getGridByEdges(int height, int width, List<Edge> edges) {
+        CoordinateIndexConverter ciConverter = new CoordinateIndexConverter();
         int numberOfCells = height * width;
         boolean[][] grid = new boolean[numberOfCells][numberOfCells];
         initializeEmptyGrid(height, width, grid);
 
         for (Edge edge : edges) {
-            int fromIndex = coordinateToIndex(edge.from(), width);
-            int toIndex = coordinateToIndex(edge.to(), width);
+            int fromIndex = ciConverter.coordinateToIndex(edge.from(), width);
+            int toIndex = ciConverter.coordinateToIndex(edge.to(), width);
             grid[fromIndex][toIndex] = true;
             grid[toIndex][fromIndex] = true;
         }

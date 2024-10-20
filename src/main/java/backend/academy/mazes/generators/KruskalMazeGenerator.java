@@ -1,5 +1,6 @@
 package backend.academy.mazes.generators;
 
+import backend.academy.mazes.commons.CoordinateIndexConverter;
 import backend.academy.mazes.commons.Randomizable;
 import backend.academy.mazes.entities.Cell;
 import backend.academy.mazes.entities.Edge;
@@ -23,6 +24,7 @@ public class KruskalMazeGenerator extends AbstractMazeGenerator
     }
 
     private List<Edge> kruskal(int height, int width, List<Edge> startEdges) {
+        CoordinateIndexConverter ciConverter = new CoordinateIndexConverter();
         int numberOfCells = height * width;
         List<Edge> result = new ArrayList<>();
 
@@ -34,8 +36,8 @@ public class KruskalMazeGenerator extends AbstractMazeGenerator
 
         while (!startEdges.isEmpty()) {
             Edge randomEdge = popRandomEdge(startEdges);
-            int fromCoordinate = coordinateToIndex(randomEdge.from(), width);
-            int toCoordinate = coordinateToIndex(randomEdge.to(), width);
+            int fromCoordinate = ciConverter.coordinateToIndex(randomEdge.from(), width);
+            int toCoordinate = ciConverter.coordinateToIndex(randomEdge.to(), width);
             if (findSet(parent, fromCoordinate) != findSet(parent, toCoordinate)) {
                 result.add(randomEdge);
                 unionSets(parent, rank, fromCoordinate, toCoordinate);
