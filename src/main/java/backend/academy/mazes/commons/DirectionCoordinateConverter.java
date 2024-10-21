@@ -1,7 +1,7 @@
 package backend.academy.mazes.commons;
 
 import backend.academy.mazes.entities.Coordinate;
-import backend.academy.mazes.entities.Direction;
+import backend.academy.mazes.types.Direction;
 
 public class DirectionCoordinateConverter {
     public Coordinate directionToCoordinate(Direction direction, int height, int width) {

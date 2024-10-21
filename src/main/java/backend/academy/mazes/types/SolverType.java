@@ -1,4 +1,4 @@
-package backend.academy.mazes.entities;
+package backend.academy.mazes.types;
 
 public enum SolverType {
     BFS,

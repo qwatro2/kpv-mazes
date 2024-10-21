@@ -1,5 +1,6 @@
 package backend.academy.mazes.entities;
 
+import backend.academy.mazes.types.CellType;
 import lombok.Getter;
 import lombok.Setter;
 
