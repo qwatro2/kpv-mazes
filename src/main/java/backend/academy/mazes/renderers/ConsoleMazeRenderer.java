@@ -2,31 +2,42 @@ package backend.academy.mazes.renderers;
 
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Maze;
+import lombok.Setter;
 import java.util.List;
 import java.util.function.Predicate;
 
 public class ConsoleMazeRenderer implements MazeRenderer {
-    private final String cross;
-    private final String horizontalWall;
-    private final String verticalWall;
-    private final String horizontalPassage;
-    private final String verticalPassage;
-    private final String horizontalPath;
-    private final String verticalPath;
-    private final String verticalStartPath;
-    private final String horizontalStartPath;
-    private final String verticalEndPath;
-    private final String horizontalEndPath;
-    private final String goodPassage;
-    private final String badPassage;
+    @Setter private String cross;
+    @Setter private String horizontalWall;
+    @Setter private String verticalWall;
+    @Setter private String horizontalPassage;
+    @Setter private String verticalPassage;
+    @Setter private String horizontalPath;
+    @Setter private String verticalPath;
+    @Setter private String verticalStartPath;
+    @Setter private String horizontalStartPath;
+    @Setter private String verticalEndPath;
+    @Setter private String horizontalEndPath;
+    @Setter private String goodPassage;
+    @Setter private String badPassage;
     private boolean startNotMarked;
     private boolean endNotMarked;
 
     public static MazeRenderer getPlusMinusMazeRenderer() {
-        return new ConsoleMazeRenderer("+", "--", "|",
-            "  ", " ", "**", "*",
-            "A", "-A", "B", "-B",
-            " O", " X");
+        return new ConsoleMazeRenderer()
+            .cross("+")
+            .horizontalWall("--")
+            .verticalWall("|")
+            .horizontalPassage("  ")
+            .verticalPassage(" ")
+            .horizontalPath("**")
+            .verticalPath("*")
+            .verticalStartPath("A")
+            .horizontalStartPath("-A")
+            .verticalEndPath("B")
+            .horizontalEndPath("-B")
+            .goodPassage(" O")
+            .badPassage(" X");
     }
 
     public static MazeRenderer getColorfulMazeRenderer() {
@@ -35,32 +46,23 @@ public class ConsoleMazeRenderer implements MazeRenderer {
         String path = "\uD83D\uDFE8";
         String startPath = "\uD83C\uDD70️";
         String endPath = "\uD83C\uDD71️";
-        return new ConsoleMazeRenderer(wall, wall, wall, emptyPassage, emptyPassage,
-            path, path, startPath, startPath, endPath, endPath,
-            "\uD83D\uDFE9", "\uD83D\uDFE5");
+        return new ConsoleMazeRenderer()
+            .cross(wall)
+            .horizontalWall(wall)
+            .verticalWall(wall)
+            .horizontalPassage(emptyPassage)
+            .verticalPassage(emptyPassage)
+            .horizontalPath(path)
+            .verticalPath(path)
+            .verticalStartPath(startPath)
+            .horizontalStartPath(startPath)
+            .verticalEndPath(endPath)
+            .horizontalEndPath(endPath)
+            .goodPassage("\uD83D\uDFE9")
+            .badPassage("\uD83D\uDFE5");
     }
 
-    protected ConsoleMazeRenderer(
-        String cross, String horizontalWall, String verticalWall,
-        String horizontalPassage, String verticalPassage, String horizontalPath,
-        String verticalPath, String verticalStartPath, String horizontalStartPath,
-        String verticalEndPath, String horizontalEndPath,
-        String goodPassage, String badPassage
-    ) {
-        this.cross = cross;
-        this.horizontalWall = horizontalWall;
-        this.verticalWall = verticalWall;
-        this.horizontalPassage = horizontalPassage;
-        this.verticalPassage = verticalPassage;
-        this.horizontalPath = horizontalPath;
-        this.verticalPath = verticalPath;
-        this.verticalStartPath = verticalStartPath;
-        this.horizontalStartPath = horizontalStartPath;
-        this.verticalEndPath = verticalEndPath;
-        this.horizontalEndPath = horizontalEndPath;
-        this.goodPassage = goodPassage;
-        this.badPassage = badPassage;
-    }
+    protected ConsoleMazeRenderer() {}
 
     @Override
     public String render(Maze maze) {
