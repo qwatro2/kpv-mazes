@@ -36,7 +36,6 @@ public class MazeApp implements App {
     private final Writer writer;
     private final Waiter waiter;
 
-    private final Random appRandom;
     private final EnumRandomPicker picker;
     private final CoordinateIndexConverter coordinateIndexConverter;
     private final ParentsPathConverter parentsPathConverter;
@@ -60,8 +59,7 @@ public class MazeApp implements App {
         this.reader = reader;
         this.writer = writer;
         this.waiter = waiter;
-        this.appRandom = new Random();
-        this.picker = new EnumRandomPicker().setRandom(this.appRandom);
+        this.picker = new EnumRandomPicker().setRandom(new Random());
         this.coordinateIndexConverter = new CoordinateIndexConverter();
         this.parentsPathConverter = new ParentsPathConverter(this.coordinateIndexConverter);
         this.directionCoordinateConverter = new DirectionCoordinateConverter();
