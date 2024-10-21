@@ -5,13 +5,14 @@ import backend.academy.mazes.analyzers.PathStatistics;
 import backend.academy.mazes.analyzers.SimpleMazePathAnalyzer;
 import backend.academy.mazes.commons.CoordinateIndexConverter;
 import backend.academy.mazes.commons.DirectionCoordinateConverter;
+import backend.academy.mazes.commons.EnumRandomPicker;
 import backend.academy.mazes.commons.ParentsPathConverter;
 import backend.academy.mazes.entities.Coordinate;
-import backend.academy.mazes.entities.Direction;
-import backend.academy.mazes.entities.GeneratorType;
+import backend.academy.mazes.types.Direction;
+import backend.academy.mazes.types.GeneratorType;
 import backend.academy.mazes.entities.Maze;
-import backend.academy.mazes.entities.RendererType;
-import backend.academy.mazes.entities.SolverType;
+import backend.academy.mazes.types.RendererType;
+import backend.academy.mazes.types.SolverType;
 import backend.academy.mazes.fillers.MazeFiller;
 import backend.academy.mazes.fillers.RandomMazeFiller;
 import backend.academy.mazes.generators.KruskalMazeGenerator;
@@ -27,6 +28,8 @@ import backend.academy.mazes.waiters.Waiter;
 import backend.academy.mazes.writers.Writer;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class MazeApp implements App {
     private final Reader reader;
@@ -34,6 +37,7 @@ public class MazeApp implements App {
     private final Waiter waiter;
 
     private final Random appRandom;
+    private final EnumRandomPicker picker;
     private final CoordinateIndexConverter coordinateIndexConverter;
     private final ParentsPathConverter parentsPathConverter;
     private final DirectionCoordinateConverter directionCoordinateConverter;
@@ -57,6 +61,7 @@ public class MazeApp implements App {
         this.writer = writer;
         this.waiter = waiter;
         this.appRandom = new Random();
+        this.picker = new EnumRandomPicker().setRandom(this.appRandom);
         this.coordinateIndexConverter = new CoordinateIndexConverter();
         this.parentsPathConverter = new ParentsPathConverter(this.coordinateIndexConverter);
         this.directionCoordinateConverter = new DirectionCoordinateConverter();
@@ -96,7 +101,7 @@ public class MazeApp implements App {
     private void receiveMazeGenerator() {
         GeneratorType generatorType = reader.readGeneratorType();
         if (generatorType == null) {
-            generatorType = getRandomGeneratorType();
+            generatorType = picker.pick(GeneratorType.class);
         }
 
         this.generator = switch (generatorType) {
@@ -108,7 +113,7 @@ public class MazeApp implements App {
     private void receiveMazeRenderer() {
         RendererType rendererType = reader.readRendererType();
         if (rendererType == null) {
-            rendererType = getRandomRendererType();
+            rendererType = picker.pick(RendererType.class);
         }
 
         this.renderer = switch (rendererType) {
@@ -127,7 +132,7 @@ public class MazeApp implements App {
     private void receiveMazeSolver() {
         SolverType solverType = reader.readSolverType();
         if (solverType == null) {
-            solverType = getRandomSolverType();
+            solverType = picker.pick(SolverType.class);
         }
 
         this.solver = switch (solverType) {
@@ -186,32 +191,19 @@ public class MazeApp implements App {
     }
 
     private Direction receiveStartDirection() {
-        Direction startDirection = reader.readStartPlace();
-        if (startDirection == null) {
-            startDirection = getRandomDirection();
-        }
-        return startDirection;
+        return receiveDirection(reader::readStartPlace, (_) -> false);
     }
 
     private Direction receiveEndDirection(Direction startDirection) {
-        Direction endDirection = reader.readEndPlace();
-        if (endDirection == null || endDirection == startDirection) {
-            endDirection = getRandomDirection();
+        return receiveDirection(reader::readEndPlace, (direction) -> direction == startDirection);
+    }
+
+    private Direction receiveDirection(Supplier<Direction> supplier, Predicate<Direction>  predicate) {
+        Direction direction = supplier.get();
+        if (direction == null || predicate.test(direction)) {
+            direction = picker.pick(Direction.class);
         }
-        return endDirection;
-    }
-
-    private GeneratorType getRandomGeneratorType() {
-        return appRandom.nextBoolean() ? GeneratorType.PRIM : GeneratorType.KRUSKAL;
-    }
-
-    private RendererType getRandomRendererType() {
-        return appRandom.nextBoolean() ? RendererType.PLUSMINUS : RendererType.COLORFUL;
-    }
-
-    private Direction getRandomDirection() {
-        Direction[] directions =  Direction.values();
-        return directions[appRandom.nextInt(0, directions.length)];
+        return direction;
     }
 
     private SolverType getRandomSolverType() {
