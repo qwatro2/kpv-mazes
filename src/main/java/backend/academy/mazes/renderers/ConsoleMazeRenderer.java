@@ -154,7 +154,7 @@ public class ConsoleMazeRenderer implements MazeRenderer {
             sb.append(pathPredicate.test(new Coordinate(row, col)) ? horizontalPath : passage);
 
             if (col == maze.width() - 1) {
-                constructRowCol(sb, row, col, maze, start, end);
+                constructRowLastCol(sb, row, maze, start, end);
                 continue;
             }
 
@@ -198,7 +198,7 @@ public class ConsoleMazeRenderer implements MazeRenderer {
         sb.append('\n');
     }
 
-    private void constructRowCol(StringBuilder sb, int row, int col,
+    private void constructRowLastCol(StringBuilder sb, int row,
         Maze maze, Coordinate start, Coordinate end) {
         if (start != null) {
             if (startNotMarked && start.row() == row && start.col() == maze.width() - 1) {
