@@ -8,4 +8,5 @@ public interface MazeRenderer {
     String render(Maze maze);
     String render(Maze maze, Coordinate start, Coordinate end);
     String render(Maze maze, List<Coordinate> path, Coordinate start, Coordinate end);
+    String getLegend();
 }

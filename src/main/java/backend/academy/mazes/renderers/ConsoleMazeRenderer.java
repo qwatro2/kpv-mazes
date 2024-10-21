@@ -74,6 +74,12 @@ public class ConsoleMazeRenderer implements MazeRenderer {
         return render(maze, path::contains, start, end);
     }
 
+    @Override
+    public String getLegend() {
+        return goodPassage + " - good passage\n" +
+            badPassage + " - bad passage";
+    }
+
     private String render(Maze maze, Predicate<Coordinate> pathPredicate,
         Coordinate start, Coordinate end) {
         StringBuilder sb = new StringBuilder();

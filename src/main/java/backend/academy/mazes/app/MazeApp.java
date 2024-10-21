@@ -90,15 +90,22 @@ public class MazeApp implements App {
 
     private void sendEmptyMaze() {
         this.writer.write(this.state.renderer().render(this.state.maze()));
+        sendLegend();
     }
 
     private void sendMazeWithStartAndEnd() {
         this.writer.write(this.state.renderer().render(this.state.maze(), this.state.start(), this.state.end()));
+        sendLegend();
     }
 
     private void sendSolvedMaze() {
         this.writer.write(this.state.renderer().render(this.state.maze(), this.state.solution(),
             this.state.start(), this.state.end()));
+        sendLegend();
         this.writer.write(this.state.pathStatistics().constructString());
+    }
+
+    private void sendLegend() {
+        this.writer.write(this.state.renderer().getLegend());
     }
 }
