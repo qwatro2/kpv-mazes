@@ -1,30 +1,30 @@
-package backend.academy.mazes.app.receivers;
+package backend.academy.mazes.apps.receivers;
 
-import backend.academy.mazes.app.MazeAppState;
+import backend.academy.mazes.apps.MazeAppState;
 import backend.academy.mazes.commons.EnumRandomPicker;
 import backend.academy.mazes.readers.Reader;
-import backend.academy.mazes.types.RendererType;
+import backend.academy.mazes.solvers.BfsMazeSolver;
+import backend.academy.mazes.types.SolverType;
 import backend.academy.mazes.writers.Writer;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-class RendererReceiverTest {
+class SolverReceiverTest {
 
     @Test
     void receive() {
         Reader reader = mock(Reader.class);
-        when(reader.readRendererType()).thenReturn(RendererType.COLORFUL);
+        when(reader.readSolverType()).thenReturn(SolverType.BFS);
 
         Writer writer = mock(Writer.class);
         EnumRandomPicker picker = mock(EnumRandomPicker.class);
 
         MazeAppState state = new MazeAppState();
-
-        Receiver receiver = new RendererReceiver(reader, writer, picker);
+        Receiver receiver = new SolverReceiver(reader, writer, picker);
         receiver.receive(state);
 
-        assertTrue(state.renderer().getLegend().contains("\uD83D\uDFE9"));
+        assertInstanceOf(BfsMazeSolver.class, state.solver());
     }
 }

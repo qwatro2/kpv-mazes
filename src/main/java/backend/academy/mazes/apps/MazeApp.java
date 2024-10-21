@@ -1,13 +1,13 @@
-package backend.academy.mazes.app;
+package backend.academy.mazes.apps;
 
 import backend.academy.mazes.analyzers.MazePathAnalyzer;
 import backend.academy.mazes.analyzers.SimpleMazePathAnalyzer;
-import backend.academy.mazes.app.receivers.CoordinateReceiver;
-import backend.academy.mazes.app.receivers.GeneratorReceiver;
-import backend.academy.mazes.app.receivers.Receiver;
-import backend.academy.mazes.app.receivers.RendererReceiver;
-import backend.academy.mazes.app.receivers.SizeReceiver;
-import backend.academy.mazes.app.receivers.SolverReceiver;
+import backend.academy.mazes.apps.receivers.CoordinateReceiver;
+import backend.academy.mazes.apps.receivers.GeneratorReceiver;
+import backend.academy.mazes.apps.receivers.Receiver;
+import backend.academy.mazes.apps.receivers.RendererReceiver;
+import backend.academy.mazes.apps.receivers.SizeReceiver;
+import backend.academy.mazes.apps.receivers.SolverReceiver;
 import backend.academy.mazes.commons.DirectionCoordinateConverter;
 import backend.academy.mazes.commons.EnumRandomPicker;
 import backend.academy.mazes.fillers.RandomMazeFiller;

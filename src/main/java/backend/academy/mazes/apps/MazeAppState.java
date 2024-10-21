@@ -1,4 +1,4 @@
-package backend.academy.mazes.app;
+package backend.academy.mazes.apps;
 
 import backend.academy.mazes.analyzers.PathStatistics;
 import backend.academy.mazes.commons.DirectionCoordinateConverter;

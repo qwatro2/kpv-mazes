@@ -1,4 +1,4 @@
-package backend.academy.mazes.app.receivers;
+package backend.academy.mazes.apps.receivers;
 
 import backend.academy.mazes.readers.Reader;
 import backend.academy.mazes.writers.Writer;

@@ -1,4 +1,4 @@
-package backend.academy.mazes.app;
+package backend.academy.mazes.apps;
 
 public interface App {
     void run();
