@@ -205,8 +205,4 @@ public class MazeApp implements App {
         }
         return direction;
     }
-
-    private SolverType getRandomSolverType() {
-        return appRandom.nextBoolean() ? SolverType.BFS : SolverType.DIJKSTRA;
-    }
 }
