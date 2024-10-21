@@ -7,7 +7,7 @@ import backend.academy.mazes.renderers.ConsoleMazeRenderer;
 import backend.academy.mazes.types.RendererType;
 import backend.academy.mazes.writers.Writer;
 
-public class RendererReceiver extends AbstractPickerReceiver implements Receiver{
+public class RendererReceiver extends AbstractPickerReceiver implements Receiver {
     public RendererReceiver(Reader reader, Writer writer, EnumRandomPicker picker) {
         super(reader, writer, picker);
     }

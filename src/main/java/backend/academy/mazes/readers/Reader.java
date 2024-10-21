@@ -7,10 +7,16 @@ import backend.academy.mazes.types.SolverType;
 
 public interface Reader {
     Integer readHeight();
+
     Integer readWidth();
+
     GeneratorType readGeneratorType();
+
     RendererType readRendererType();
+
     Direction readStartPlace();
+
     Direction readEndPlace();
+
     SolverType readSolverType();
 }

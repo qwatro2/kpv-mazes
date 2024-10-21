@@ -4,6 +4,8 @@ import java.io.PrintStream;
 
 public interface Printing<T> {
     T setPrintStream(PrintStream printStream);
+
     <R> void println(R object);
+
     <R> void print(R object);
 }

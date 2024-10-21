@@ -2,7 +2,6 @@ package backend.academy.mazes.renderers;
 
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Maze;
-
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -29,18 +28,23 @@ public class ConsoleMazeRenderer implements MazeRenderer {
     }
 
     public static MazeRenderer getColorfulMazeRenderer() {
-        return new ConsoleMazeRenderer("⬜", "⬜", "⬜", "⬛",
-            "⬛", "\uD83D\uDFE8", "\uD83D\uDFE8",
-            "\uD83C\uDD70️", "\uD83C\uDD70️",
-            "\uD83C\uDD71️", "\uD83C\uDD71️",
+        String wall = "⬜";
+        String emptyPassage = "⬛";
+        String path = "\uD83D\uDFE8";
+        String startPath = "\uD83C\uDD70️";
+        String endPath = "\uD83C\uDD71️";
+        return new ConsoleMazeRenderer(wall, wall, wall, emptyPassage, emptyPassage,
+            path, path, startPath, startPath, endPath, endPath,
             "\uD83D\uDFE9", "\uD83D\uDFE5");
     }
 
-    private ConsoleMazeRenderer(String cross, String horizontalWall, String verticalWall,
+    protected ConsoleMazeRenderer(
+        String cross, String horizontalWall, String verticalWall,
         String horizontalPassage, String verticalPassage, String horizontalPath,
         String verticalPath, String verticalStartPath, String horizontalStartPath,
         String verticalEndPath, String horizontalEndPath,
-        String goodPassage, String badPassage) {
+        String goodPassage, String badPassage
+    ) {
         this.cross = cross;
         this.horizontalWall = horizontalWall;
         this.verticalWall = verticalWall;
@@ -58,12 +62,12 @@ public class ConsoleMazeRenderer implements MazeRenderer {
 
     @Override
     public String render(Maze maze) {
-        return render(maze, (Coordinate _) -> false, null, null);
+        return render(maze, (_) -> false, null, null);
     }
 
     @Override
     public String render(Maze maze, Coordinate start, Coordinate end) {
-        return render(maze, (Coordinate _) -> false, start, end);
+        return render(maze, (_) -> false, start, end);
     }
 
     @Override
@@ -76,12 +80,10 @@ public class ConsoleMazeRenderer implements MazeRenderer {
 
     @Override
     public String getLegend() {
-        return goodPassage + " - good passage\n" +
-            badPassage + " - bad passage";
+        return goodPassage + " - good passage\n" + badPassage + " - bad passage";
     }
 
-    private String render(Maze maze, Predicate<Coordinate> pathPredicate,
-        Coordinate start, Coordinate end) {
+    private String render(Maze maze, Predicate<Coordinate> pathPredicate, Coordinate start, Coordinate end) {
         StringBuilder sb = new StringBuilder();
 
         boolean startNotMarked = true;
@@ -149,8 +151,9 @@ public class ConsoleMazeRenderer implements MazeRenderer {
                 }
 
                 boolean checkRightCell = grid[row * maze.width() + col][row * maze.width() + col + 1];
-                sb.append(checkRightCell ? (pathPredicate.test(new Coordinate(row, col)) &&
-                        pathPredicate.test(new Coordinate(row, col + 1)) ? verticalPath : verticalPassage) : verticalWall);
+                sb.append(checkRightCell ? (pathPredicate.test(new Coordinate(row, col))
+                    && pathPredicate.test(new Coordinate(row, col + 1)) ? verticalPath : verticalPassage)
+                    : verticalWall);
             }
             sb.append('\n');
             sb.append(cross);
@@ -174,8 +177,9 @@ public class ConsoleMazeRenderer implements MazeRenderer {
                 }
 
                 boolean checkBottomCell = grid[row * maze.width() + col][(row + 1) * maze.width() + col];
-                sb.append(checkBottomCell ? (pathPredicate.test(new Coordinate(row, col)) &&
-                        pathPredicate.test(new Coordinate(row + 1, col)) ? horizontalPath : horizontalPassage) : horizontalWall);
+                sb.append(checkBottomCell ? (pathPredicate.test(new Coordinate(row, col))
+                    && pathPredicate.test(new Coordinate(row + 1, col)) ? horizontalPath : horizontalPassage) :
+                    horizontalWall);
                 sb.append(cross);
             }
             sb.append('\n');

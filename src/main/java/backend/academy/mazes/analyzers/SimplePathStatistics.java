@@ -23,7 +23,7 @@ public class SimplePathStatistics implements PathStatistics {
 
     @Override
     public String constructString() {
-        return "Number of good passages: " + this.numberOfGoodPassages + "\n" +
-            "Number of bad passages: " + this.numberOfBadPassages;
+        return "Number of good passages: " + this.numberOfGoodPassages + "\n"
+            + "Number of bad passages: " + this.numberOfBadPassages;
     }
 }

@@ -2,8 +2,8 @@ package backend.academy;
 
 import backend.academy.mazes.apps.App;
 import backend.academy.mazes.apps.MazeApp;
-import backend.academy.mazes.waiters.ConsoleWaiter;
 import backend.academy.mazes.readers.ConsoleReader;
+import backend.academy.mazes.waiters.ConsoleWaiter;
 import backend.academy.mazes.writers.ConsoleWriter;
 import lombok.experimental.UtilityClass;
 

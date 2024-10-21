@@ -73,9 +73,9 @@ public class KruskalMazeGenerator extends AbstractMazeGenerator
         return parent.get(vertexIndex);
     }
 
-    private void unionSets(List<Integer> parent, List<Integer> rank, int setA, int setB) {
-        setA = findSet(parent, setA);
-        setB = findSet(parent, setB);
+    private void unionSets(List<Integer> parent, List<Integer> rank, int a, int b) {
+        int setA = findSet(parent, a);
+        int setB = findSet(parent, b);
         if (setA != setB) {
             if (rank.get(setA) < rank.get(setB)) {
                 int tmp = setA;
@@ -84,7 +84,7 @@ public class KruskalMazeGenerator extends AbstractMazeGenerator
             }
             parent.set(setB, setA);
             if (Objects.equals(rank.get(setA), rank.get(setB))) {
-                rank.set(setA, 1+ rank.get(setA));
+                rank.set(setA, 1 + rank.get(setA));
             }
         }
     }

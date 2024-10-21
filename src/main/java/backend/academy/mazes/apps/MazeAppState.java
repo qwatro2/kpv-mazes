@@ -8,10 +8,10 @@ import backend.academy.mazes.fillers.MazeFiller;
 import backend.academy.mazes.generators.MazeGenerator;
 import backend.academy.mazes.renderers.MazeRenderer;
 import backend.academy.mazes.solvers.MazeSolver;
-import lombok.Getter;
-import lombok.Setter;
 import java.util.List;
 import java.util.Random;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
