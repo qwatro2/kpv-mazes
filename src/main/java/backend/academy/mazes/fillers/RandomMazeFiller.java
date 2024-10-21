@@ -1,10 +1,8 @@
 package backend.academy.mazes.fillers;
 
 import backend.academy.mazes.commons.EnumRandomPicker;
-import backend.academy.mazes.commons.Randomizable;
 import backend.academy.mazes.types.CellType;
 import backend.academy.mazes.entities.Maze;
-import java.util.Random;
 
 public class RandomMazeFiller implements MazeFiller {
     private final EnumRandomPicker picker;

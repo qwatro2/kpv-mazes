@@ -10,7 +10,6 @@ import backend.academy.mazes.app.receivers.SizeReceiver;
 import backend.academy.mazes.app.receivers.SolverReceiver;
 import backend.academy.mazes.commons.DirectionCoordinateConverter;
 import backend.academy.mazes.commons.EnumRandomPicker;
-import backend.academy.mazes.fillers.MazeFiller;
 import backend.academy.mazes.fillers.RandomMazeFiller;
 import backend.academy.mazes.readers.Reader;
 import backend.academy.mazes.waiters.Waiter;

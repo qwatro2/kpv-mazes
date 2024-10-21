@@ -1,8 +1,6 @@
 package backend.academy.mazes.commons;
 
 import backend.academy.mazes.entities.Coordinate;
-import backend.academy.mazes.types.Direction;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
