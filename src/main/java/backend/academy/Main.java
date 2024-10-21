@@ -9,7 +9,6 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Main {
-
     public static void main(String[] args) {
         App mazeApp = new MazeApp(
             new ConsoleReader().setPrintStream(System.out).setInputStream(System.in),
