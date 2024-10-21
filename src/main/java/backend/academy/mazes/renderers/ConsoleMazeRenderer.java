@@ -67,7 +67,7 @@ public class ConsoleMazeRenderer implements MazeRenderer {
 
     @Override
     public String render(Maze maze) {
-        return render(maze, (_) -> false, null, null);
+        return render(maze, (coordinate) -> false, null, null);
     }
 
     @Override
