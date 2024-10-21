@@ -1,5 +1,8 @@
 package backend.academy.mazes.app;
 
+import backend.academy.mazes.analyzers.MazePathAnalyzer;
+import backend.academy.mazes.analyzers.PathStatistics;
+import backend.academy.mazes.analyzers.SimpleMazePathAnalyzer;
 import backend.academy.mazes.commons.CoordinateIndexConverter;
 import backend.academy.mazes.commons.DirectionCoordinateConverter;
 import backend.academy.mazes.commons.ParentsPathConverter;
@@ -9,6 +12,8 @@ import backend.academy.mazes.entities.GeneratorType;
 import backend.academy.mazes.entities.Maze;
 import backend.academy.mazes.entities.RendererType;
 import backend.academy.mazes.entities.SolverType;
+import backend.academy.mazes.fillers.MazeFiller;
+import backend.academy.mazes.fillers.RandomMazeFiller;
 import backend.academy.mazes.generators.KruskalMazeGenerator;
 import backend.academy.mazes.generators.MazeGenerator;
 import backend.academy.mazes.generators.PrimMazeGenerator;
@@ -45,6 +50,7 @@ public class MazeApp implements App {
     private Coordinate start;
     private Coordinate end;
     private List<Coordinate> solution;
+    private PathStatistics pathStatistics;
 
     public MazeApp(Reader reader, Writer writer, Waiter waiter) {
         this.reader = reader;
@@ -64,6 +70,7 @@ public class MazeApp implements App {
         receiveMazeRenderer();
 
         generateMaze();
+        fillMaze();
         sendEmptyMaze();
         waitEnteringButton();
 
@@ -73,6 +80,7 @@ public class MazeApp implements App {
 
         receiveMazeSolver();
         solveMaze();
+        analyzeSolution();
         sendSolvedMaze();
     }
 
@@ -132,8 +140,18 @@ public class MazeApp implements App {
         this.maze = generator.generate(this.height, this.width);
     }
 
+    private void fillMaze() {
+        MazeFiller mazeFiller = new RandomMazeFiller().setRandom(new Random());
+        mazeFiller.fill(this.maze);
+    }
+
     private void solveMaze() {
         this.solution = this.solver.solve(this.maze, this.start, this.end);
+    }
+
+    private void analyzeSolution() {
+        MazePathAnalyzer mazePathAnalyzer = new SimpleMazePathAnalyzer();
+        this.pathStatistics = mazePathAnalyzer.analyze(this.maze, this.solution);
     }
 
     private void sendEmptyMaze() {
@@ -146,6 +164,7 @@ public class MazeApp implements App {
 
     private void sendSolvedMaze() {
         this.writer.write(renderer.render(this.maze, this.solution, this.start, this.end));
+        this.writer.write(this.pathStatistics.constructString());
     }
 
     private int receiveHeight() {
