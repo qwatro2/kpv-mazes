@@ -4,6 +4,7 @@ import backend.academy.mazes.analyzers.PathStatistics;
 import backend.academy.mazes.commons.DirectionCoordinateConverter;
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Maze;
+import backend.academy.mazes.fillers.MazeFiller;
 import backend.academy.mazes.generators.MazeGenerator;
 import backend.academy.mazes.renderers.MazeRenderer;
 import backend.academy.mazes.solvers.MazeSolver;
@@ -27,4 +28,5 @@ public class MazeAppState {
     private MazeSolver solver;
     private List<Coordinate> solution;
     private PathStatistics pathStatistics;
+    private MazeFiller filler;
 }

@@ -33,11 +33,13 @@ public class MazeApp implements App {
         this.writer = writer;
         this.waiter = waiter;
 
+        EnumRandomPicker picker = new EnumRandomPicker().setRandom(new Random());
+
         this.state = new MazeAppState()
             .generatorRandom(new Random())
-            .diConverter(new DirectionCoordinateConverter());
+            .diConverter(new DirectionCoordinateConverter())
+            .filler(new RandomMazeFiller(picker));
 
-        EnumRandomPicker picker = new EnumRandomPicker().setRandom(new Random());
         this.sizeReceiver = new SizeReceiver(reader, this.writer);
         this.generatorReceiver = new GeneratorReceiver(reader, this.writer, picker);
         this.rendererReceiver = new RendererReceiver(reader, this.writer, picker);
@@ -75,8 +77,7 @@ public class MazeApp implements App {
     }
 
     private void fillMaze() {
-        MazeFiller mazeFiller = new RandomMazeFiller().setRandom(new Random());
-        mazeFiller.fill(this.state.maze());
+        state.filler().fill(this.state.maze());
     }
 
     private void solveMaze() {
