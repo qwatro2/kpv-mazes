@@ -2,6 +2,7 @@ package backend.academy.mazes.app;
 
 import backend.academy.mazes.analyzers.MazePathAnalyzer;
 import backend.academy.mazes.analyzers.SimpleMazePathAnalyzer;
+import backend.academy.mazes.app.receivers.GeneratorReceiver;
 import backend.academy.mazes.app.receivers.Receiver;
 import backend.academy.mazes.app.receivers.SizeReceiver;
 import backend.academy.mazes.commons.CoordinateIndexConverter;
@@ -9,13 +10,10 @@ import backend.academy.mazes.commons.DirectionCoordinateConverter;
 import backend.academy.mazes.commons.EnumRandomPicker;
 import backend.academy.mazes.commons.ParentsPathConverter;
 import backend.academy.mazes.types.Direction;
-import backend.academy.mazes.types.GeneratorType;
 import backend.academy.mazes.types.RendererType;
 import backend.academy.mazes.types.SolverType;
 import backend.academy.mazes.fillers.MazeFiller;
 import backend.academy.mazes.fillers.RandomMazeFiller;
-import backend.academy.mazes.generators.KruskalMazeGenerator;
-import backend.academy.mazes.generators.PrimMazeGenerator;
 import backend.academy.mazes.readers.Reader;
 import backend.academy.mazes.renderers.ConsoleMazeRenderer;
 import backend.academy.mazes.solvers.BfsMazeSolver;
@@ -37,8 +35,8 @@ public class MazeApp implements App {
     private final DirectionCoordinateConverter directionCoordinateConverter;
 
     private final Receiver sizeReceiver;
+    private final Receiver generatorReceiver;
 
-    private final Random generatorRandom;
     private final MazeAppState state;
 
     public MazeApp(Reader reader, Writer writer, Waiter waiter) {
@@ -49,15 +47,15 @@ public class MazeApp implements App {
         this.coordinateIndexConverter = new CoordinateIndexConverter();
         this.parentsPathConverter = new ParentsPathConverter(this.coordinateIndexConverter);
         this.directionCoordinateConverter = new DirectionCoordinateConverter();
-        this.generatorRandom = new Random(142857);
-        this.state = new MazeAppState();
+        this.state = new MazeAppState().generatorRandom(new Random(142857));
         this.sizeReceiver = new SizeReceiver(this.reader, this.writer);
+        this.generatorReceiver = new GeneratorReceiver(this.reader, this.writer, this.picker);
     }
 
     @Override
     public void run() {
-        sizeReceiver.receive(this.state);
-        receiveMazeGenerator();
+        sizeReceiver.receive(state);
+        generatorReceiver.receive(state);
         receiveMazeRenderer();
 
         generateMaze();
@@ -77,18 +75,6 @@ public class MazeApp implements App {
 
     private void waitEnteringButton() {
         this.waiter.waiting("Enter any button to continue...");
-    }
-
-    private void receiveMazeGenerator() {
-        GeneratorType generatorType = reader.readGeneratorType();
-        if (generatorType == null) {
-            generatorType = picker.pick(GeneratorType.class);
-        }
-
-        this.state.generator(switch (generatorType) {
-            case PRIM -> new PrimMazeGenerator().setRandom(generatorRandom);
-            case KRUSKAL -> new KruskalMazeGenerator().setRandom(generatorRandom);
-        });
     }
 
     private void receiveMazeRenderer() {

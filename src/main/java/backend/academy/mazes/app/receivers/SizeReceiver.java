@@ -4,13 +4,9 @@ import backend.academy.mazes.app.MazeAppState;
 import backend.academy.mazes.readers.Reader;
 import backend.academy.mazes.writers.Writer;
 
-public class SizeReceiver implements Receiver {
-    private final Reader reader;
-    private final Writer writer;
-
+public class SizeReceiver extends AbstractReceiver implements Receiver {
     public SizeReceiver(Reader reader, Writer writer) {
-        this.reader = reader;
-        this.writer = writer;
+        super(reader, writer);
     }
 
     @Override

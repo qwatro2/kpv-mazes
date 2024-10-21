@@ -9,6 +9,7 @@ import backend.academy.mazes.solvers.MazeSolver;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -23,4 +24,5 @@ public class MazeAppState {
     private MazeGenerator generator;
     private MazeRenderer renderer;
     private MazeSolver solver;
+    private Random generatorRandom;
 }
