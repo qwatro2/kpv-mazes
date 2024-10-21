@@ -17,8 +17,10 @@ public class SimpleMazePathAnalyzer implements MazePathAnalyzer {
             switch (cells[row][col].cellType()) {
                 case GOOD:
                     pathStatistics.incrementGoodPassages();
+                    break;
                 case BAD:
                     pathStatistics.incrementBadPassages();
+                    break;
                 case EMPTY:
             }
         }
