@@ -34,7 +34,7 @@ public class MazeApp implements App {
         this.waiter = waiter;
 
         this.state = new MazeAppState()
-            .generatorRandom(new Random(142857))
+            .generatorRandom(new Random())
             .diConverter(new DirectionCoordinateConverter());
 
         EnumRandomPicker picker = new EnumRandomPicker().setRandom(new Random());
