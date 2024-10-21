@@ -16,7 +16,7 @@ public class ConsoleWaiter implements Waiter, Reading<ConsoleWaiter>, Printing<C
     public void waiting(String prompt) {
         printStream.print(prompt);
         try {
-            int read = this.bufferedReader.read();
+            int _ = this.bufferedReader.read();
         } catch (IOException _) {
 
         }
