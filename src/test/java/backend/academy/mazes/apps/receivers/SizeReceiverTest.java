@@ -2,6 +2,8 @@ package backend.academy.mazes.apps.receivers;
 
 import backend.academy.mazes.apps.MazeAppState;
 import backend.academy.mazes.readers.Reader;
+import backend.academy.mazes.receivers.Receiver;
+import backend.academy.mazes.receivers.SizeReceiver;
 import backend.academy.mazes.writers.Writer;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

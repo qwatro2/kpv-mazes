@@ -1,4 +1,4 @@
-package backend.academy.mazes.apps.receivers;
+package backend.academy.mazes.receivers;
 
 import backend.academy.mazes.commons.EnumRandomPicker;
 import backend.academy.mazes.readers.Reader;

@@ -3,6 +3,8 @@ package backend.academy.mazes.apps.receivers;
 import backend.academy.mazes.apps.MazeAppState;
 import backend.academy.mazes.commons.EnumRandomPicker;
 import backend.academy.mazes.readers.Reader;
+import backend.academy.mazes.receivers.Receiver;
+import backend.academy.mazes.receivers.SolverReceiver;
 import backend.academy.mazes.solvers.BfsMazeSolver;
 import backend.academy.mazes.types.SolverType;
 import backend.academy.mazes.writers.Writer;

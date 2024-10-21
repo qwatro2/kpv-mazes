@@ -4,6 +4,8 @@ import backend.academy.mazes.apps.MazeAppState;
 import backend.academy.mazes.commons.EnumRandomPicker;
 import backend.academy.mazes.generators.PrimMazeGenerator;
 import backend.academy.mazes.readers.Reader;
+import backend.academy.mazes.receivers.GeneratorReceiver;
+import backend.academy.mazes.receivers.Receiver;
 import backend.academy.mazes.types.GeneratorType;
 import backend.academy.mazes.writers.Writer;
 import org.junit.jupiter.api.Test;

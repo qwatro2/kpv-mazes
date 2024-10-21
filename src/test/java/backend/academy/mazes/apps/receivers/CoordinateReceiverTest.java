@@ -5,6 +5,8 @@ import backend.academy.mazes.commons.DirectionCoordinateConverter;
 import backend.academy.mazes.commons.EnumRandomPicker;
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.readers.Reader;
+import backend.academy.mazes.receivers.CoordinateReceiver;
+import backend.academy.mazes.receivers.Receiver;
 import backend.academy.mazes.types.Direction;
 import backend.academy.mazes.writers.Writer;
 import org.junit.jupiter.api.Test;
