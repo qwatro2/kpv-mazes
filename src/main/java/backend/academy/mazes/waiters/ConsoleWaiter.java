@@ -16,8 +16,8 @@ public class ConsoleWaiter implements Waiter, Reading<ConsoleWaiter>, Printing<C
     public void waiting(String prompt) {
         printStream.print(prompt);
         try {
-            int _ = this.bufferedReader.read();
-        } catch (IOException _) {
+            int ord = this.bufferedReader.read();
+        } catch (IOException exception) {
 
         }
     }
@@ -48,7 +48,7 @@ public class ConsoleWaiter implements Waiter, Reading<ConsoleWaiter>, Printing<C
     public String readLine() {
         try {
             return this.bufferedReader.readLine();
-        } catch (IOException _) {
+        } catch (IOException exception) {
             return null;
         }
     }

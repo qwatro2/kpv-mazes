@@ -99,7 +99,7 @@ public class ConsoleReader implements Reader, Reading<ConsoleReader>, Printing<C
         try {
             Integer converted = Integer.parseInt(s);
             return checkInteger.test(converted) ? converted : null;
-        } catch (NumberFormatException _) {
+        } catch (NumberFormatException exception) {
             return null;
         }
     }
@@ -168,7 +168,7 @@ public class ConsoleReader implements Reader, Reading<ConsoleReader>, Printing<C
     public String readLine() {
         try {
             return this.bufferedReader.readLine();
-        } catch (IOException _) {
+        } catch (IOException exception) {
             return null;
         }
     }

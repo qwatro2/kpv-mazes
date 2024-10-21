@@ -24,7 +24,7 @@ public class CoordinateReceiver extends AbstractPickerReceiver implements Receiv
     }
 
     private Direction receiveStartDirection() {
-        return receiveDirection(reader::readStartPlace, (_) -> false);
+        return receiveDirection(reader::readStartPlace, (direction) -> false);
     }
 
     private Direction receiveEndDirection(Direction startDirection) {
