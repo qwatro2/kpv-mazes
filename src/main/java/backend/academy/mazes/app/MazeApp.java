@@ -4,6 +4,7 @@ import backend.academy.mazes.analyzers.MazePathAnalyzer;
 import backend.academy.mazes.analyzers.SimpleMazePathAnalyzer;
 import backend.academy.mazes.app.receivers.GeneratorReceiver;
 import backend.academy.mazes.app.receivers.Receiver;
+import backend.academy.mazes.app.receivers.RendererReceiver;
 import backend.academy.mazes.app.receivers.SizeReceiver;
 import backend.academy.mazes.commons.CoordinateIndexConverter;
 import backend.academy.mazes.commons.DirectionCoordinateConverter;
@@ -36,6 +37,7 @@ public class MazeApp implements App {
 
     private final Receiver sizeReceiver;
     private final Receiver generatorReceiver;
+    private final Receiver rendererReceiver;
 
     private final MazeAppState state;
 
@@ -50,13 +52,14 @@ public class MazeApp implements App {
         this.state = new MazeAppState().generatorRandom(new Random(142857));
         this.sizeReceiver = new SizeReceiver(this.reader, this.writer);
         this.generatorReceiver = new GeneratorReceiver(this.reader, this.writer, this.picker);
+        this.rendererReceiver = new RendererReceiver(this.reader, this.writer, this.picker);
     }
 
     @Override
     public void run() {
         sizeReceiver.receive(state);
         generatorReceiver.receive(state);
-        receiveMazeRenderer();
+        rendererReceiver.receive(state);
 
         generateMaze();
         fillMaze();
@@ -75,18 +78,6 @@ public class MazeApp implements App {
 
     private void waitEnteringButton() {
         this.waiter.waiting("Enter any button to continue...");
-    }
-
-    private void receiveMazeRenderer() {
-        RendererType rendererType = reader.readRendererType();
-        if (rendererType == null) {
-            rendererType = picker.pick(RendererType.class);
-        }
-
-        this.state.renderer(switch (rendererType) {
-            case PLUSMINUS -> ConsoleMazeRenderer.getPlusMinusMazeRenderer();
-            case COLORFUL -> ConsoleMazeRenderer.getColorfulMazeRenderer();
-        });
     }
 
     private void receiveCoordinates() {

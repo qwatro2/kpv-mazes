@@ -8,11 +8,9 @@ import backend.academy.mazes.readers.Reader;
 import backend.academy.mazes.types.GeneratorType;
 import backend.academy.mazes.writers.Writer;
 
-public class GeneratorReceiver extends AbstractReceiver implements Receiver {
-    private final EnumRandomPicker picker;
+public class GeneratorReceiver extends AbstractPickerReceiver implements Receiver {
     public GeneratorReceiver(Reader reader, Writer writer, EnumRandomPicker picker) {
-        super(reader, writer);
-        this.picker = picker;
+        super(reader, writer, picker);
     }
 
     @Override
