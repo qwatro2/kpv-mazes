@@ -154,19 +154,7 @@ public class ConsoleMazeRenderer implements MazeRenderer {
             sb.append(pathPredicate.test(new Coordinate(row, col)) ? horizontalPath : passage);
 
             if (col == maze.width() - 1) {
-                if (start != null) {
-                    if (startNotMarked && start.row() == row && start.col() == maze.width() - 1) {
-                        sb.append(verticalStartPath);
-                        startNotMarked = false;
-                    } else if (endNotMarked && end.row() == row && end.col() == maze.width() - 1) {
-                        sb.append(verticalEndPath);
-                        endNotMarked = false;
-                    } else {
-                        sb.append(verticalWall);
-                    }
-                } else {
-                    sb.append(verticalWall);
-                }
+                constructRowCol(sb, row, col, maze, start, end);
                 continue;
             }
 
@@ -208,5 +196,22 @@ public class ConsoleMazeRenderer implements MazeRenderer {
             sb.append(cross);
         }
         sb.append('\n');
+    }
+
+    private void constructRowCol(StringBuilder sb, int row, int col,
+        Maze maze, Coordinate start, Coordinate end) {
+        if (start != null) {
+            if (startNotMarked && start.row() == row && start.col() == maze.width() - 1) {
+                sb.append(verticalStartPath);
+                startNotMarked = false;
+            } else if (endNotMarked && end.row() == row && end.col() == maze.width() - 1) {
+                sb.append(verticalEndPath);
+                endNotMarked = false;
+            } else {
+                sb.append(verticalWall);
+            }
+        } else {
+            sb.append(verticalWall);
+        }
     }
 }
