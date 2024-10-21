@@ -7,52 +7,42 @@ import backend.academy.mazes.app.receivers.GeneratorReceiver;
 import backend.academy.mazes.app.receivers.Receiver;
 import backend.academy.mazes.app.receivers.RendererReceiver;
 import backend.academy.mazes.app.receivers.SizeReceiver;
-import backend.academy.mazes.commons.CoordinateIndexConverter;
+import backend.academy.mazes.app.receivers.SolverReceiver;
 import backend.academy.mazes.commons.DirectionCoordinateConverter;
 import backend.academy.mazes.commons.EnumRandomPicker;
-import backend.academy.mazes.commons.ParentsPathConverter;
-import backend.academy.mazes.types.SolverType;
 import backend.academy.mazes.fillers.MazeFiller;
 import backend.academy.mazes.fillers.RandomMazeFiller;
 import backend.academy.mazes.readers.Reader;
-import backend.academy.mazes.solvers.BfsMazeSolver;
-import backend.academy.mazes.solvers.DijkstraMazeSolver;
 import backend.academy.mazes.waiters.Waiter;
 import backend.academy.mazes.writers.Writer;
 import java.util.Random;
 
 public class MazeApp implements App {
-    private final Reader reader;
     private final Writer writer;
     private final Waiter waiter;
-
-    private final EnumRandomPicker picker;
-    private final CoordinateIndexConverter coordinateIndexConverter;
-    private final ParentsPathConverter parentsPathConverter;
 
     private final Receiver sizeReceiver;
     private final Receiver generatorReceiver;
     private final Receiver rendererReceiver;
     private final Receiver coordinateReceiver;
+    private final Receiver solverReceiver;
 
     private final MazeAppState state;
 
     public MazeApp(Reader reader, Writer writer, Waiter waiter) {
-        this.reader = reader;
         this.writer = writer;
         this.waiter = waiter;
-        this.picker = new EnumRandomPicker().setRandom(new Random());
-        this.coordinateIndexConverter = new CoordinateIndexConverter();
-        this.parentsPathConverter = new ParentsPathConverter(this.coordinateIndexConverter);
 
         this.state = new MazeAppState()
             .generatorRandom(new Random(142857))
             .diConverter(new DirectionCoordinateConverter());
 
-        this.sizeReceiver = new SizeReceiver(this.reader, this.writer);
-        this.generatorReceiver = new GeneratorReceiver(this.reader, this.writer, this.picker);
-        this.rendererReceiver = new RendererReceiver(this.reader, this.writer, this.picker);
-        this.coordinateReceiver = new CoordinateReceiver(this.reader, this.writer, this.picker);
+        EnumRandomPicker picker = new EnumRandomPicker().setRandom(new Random());
+        this.sizeReceiver = new SizeReceiver(reader, this.writer);
+        this.generatorReceiver = new GeneratorReceiver(reader, this.writer, picker);
+        this.rendererReceiver = new RendererReceiver(reader, this.writer, picker);
+        this.coordinateReceiver = new CoordinateReceiver(reader, this.writer, picker);
+        this.solverReceiver = new SolverReceiver(reader, this.writer, picker);
     }
 
     @Override
@@ -70,7 +60,7 @@ public class MazeApp implements App {
         sendMazeWithStartAndEnd();
         waitEnteringButton();
 
-        receiveMazeSolver();
+        solverReceiver.receive(state);
         solveMaze();
         analyzeSolution();
         sendSolvedMaze();
@@ -78,18 +68,6 @@ public class MazeApp implements App {
 
     private void waitEnteringButton() {
         this.waiter.waiting("Enter any button to continue...");
-    }
-
-    private void receiveMazeSolver() {
-        SolverType solverType = reader.readSolverType();
-        if (solverType == null) {
-            solverType = picker.pick(SolverType.class);
-        }
-
-        this.state.solver(switch (solverType) {
-            case BFS -> new BfsMazeSolver(this.coordinateIndexConverter, this.parentsPathConverter);
-            case DIJKSTRA -> new DijkstraMazeSolver(this.coordinateIndexConverter, this.parentsPathConverter);
-        });
     }
 
     private void generateMaze() {
