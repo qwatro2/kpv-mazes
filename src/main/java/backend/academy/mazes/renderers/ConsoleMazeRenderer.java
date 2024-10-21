@@ -203,8 +203,8 @@ public class ConsoleMazeRenderer implements MazeRenderer {
 
             boolean checkBottomCell = grid[row * maze.width() + col][(row + 1) * maze.width() + col];
             sb.append(checkBottomCell ? (pathPredicate.test(new Coordinate(row, col))
-                && pathPredicate.test(new Coordinate(row + 1, col)) ? horizontalPath : horizontalPassage) :
-                horizontalWall);
+                && pathPredicate.test(new Coordinate(row + 1, col)) ? horizontalPath : horizontalPassage)
+                : horizontalWall);
             sb.append(cross);
         }
         sb.append('\n');
