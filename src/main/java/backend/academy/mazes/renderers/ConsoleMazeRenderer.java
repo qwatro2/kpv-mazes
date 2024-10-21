@@ -18,25 +18,29 @@ public class ConsoleMazeRenderer implements MazeRenderer {
     private final String horizontalStartPath;
     private final String verticalEndPath;
     private final String horizontalEndPath;
+    private final String goodPassage;
+    private final String badPassage;
 
     public static MazeRenderer getPlusMinusMazeRenderer() {
         return new ConsoleMazeRenderer("+", "--", "|",
             "  ", " ", "**", "*",
-            "A", "-A", "B", "-B");
+            "A", "-A", "B", "-B",
+            " O", " X");
     }
 
     public static MazeRenderer getColorfulMazeRenderer() {
         return new ConsoleMazeRenderer("⬜", "⬜", "⬜", "⬛",
             "⬛", "\uD83D\uDFE8", "\uD83D\uDFE8",
             "\uD83C\uDD70️", "\uD83C\uDD70️",
-            "\uD83C\uDD71️", "\uD83C\uDD71️");
+            "\uD83C\uDD71️", "\uD83C\uDD71️",
+            "\uD83D\uDFE9", "\uD83D\uDFE5");
     }
 
     private ConsoleMazeRenderer(String cross, String horizontalWall, String verticalWall,
         String horizontalPassage, String verticalPassage, String horizontalPath,
         String verticalPath, String verticalStartPath, String horizontalStartPath,
-        String verticalEndPath, String horizontalEndPath) {
-
+        String verticalEndPath, String horizontalEndPath,
+        String goodPassage, String badPassage) {
         this.cross = cross;
         this.horizontalWall = horizontalWall;
         this.verticalWall = verticalWall;
@@ -48,6 +52,8 @@ public class ConsoleMazeRenderer implements MazeRenderer {
         this.horizontalStartPath = horizontalStartPath;
         this.verticalEndPath = verticalEndPath;
         this.horizontalEndPath = horizontalEndPath;
+        this.goodPassage = goodPassage;
+        this.badPassage = badPassage;
     }
 
     @Override
@@ -112,7 +118,12 @@ public class ConsoleMazeRenderer implements MazeRenderer {
             }
 
             for (int col = 0; col < maze.width(); ++col) {
-                sb.append(pathPredicate.test(new Coordinate(row, col)) ? horizontalPath : horizontalPassage);
+                String passage = switch (maze.cells()[row][col].cellType()) {
+                    case EMPTY -> horizontalPassage;
+                    case GOOD -> goodPassage;
+                    case BAD -> badPassage;
+                };
+                sb.append(pathPredicate.test(new Coordinate(row, col)) ? horizontalPath : passage);
 
                 if (col == maze.width() - 1) {
                     if (start != null) {
