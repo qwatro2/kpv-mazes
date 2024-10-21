@@ -2,9 +2,9 @@ package backend.academy.mazes.renderers;
 
 import backend.academy.mazes.entities.Coordinate;
 import backend.academy.mazes.entities.Maze;
-import lombok.Setter;
 import java.util.List;
 import java.util.function.Predicate;
+import lombok.Setter;
 
 public class ConsoleMazeRenderer implements MazeRenderer {
     @Setter private String cross;
@@ -62,7 +62,8 @@ public class ConsoleMazeRenderer implements MazeRenderer {
             .badPassage("\uD83D\uDFE5");
     }
 
-    protected ConsoleMazeRenderer() {}
+    protected ConsoleMazeRenderer() {
+    }
 
     @Override
     public String render(Maze maze) {
@@ -143,8 +144,10 @@ public class ConsoleMazeRenderer implements MazeRenderer {
         }
     }
 
-    private void constructRow(StringBuilder sb, int row, Maze maze,
-        Coordinate start, Coordinate end, Predicate<Coordinate> pathPredicate) {
+    private void constructRow(
+        StringBuilder sb, int row, Maze maze,
+        Coordinate start, Coordinate end, Predicate<Coordinate> pathPredicate
+    ) {
         boolean[][] grid = maze.grid();
 
         for (int col = 0; col < maze.width(); ++col) {
@@ -168,8 +171,10 @@ public class ConsoleMazeRenderer implements MazeRenderer {
         sb.append('\n');
     }
 
-    private void constructBottomWall(StringBuilder sb, int row, Maze maze,
-        Coordinate start, Coordinate end, Predicate<Coordinate> pathPredicate) {
+    private void constructBottomWall(
+        StringBuilder sb, int row, Maze maze,
+        Coordinate start, Coordinate end, Predicate<Coordinate> pathPredicate
+    ) {
         boolean[][] grid = maze.grid();
         sb.append(cross);
         for (int col = 0; col < maze.width(); ++col) {
@@ -200,8 +205,10 @@ public class ConsoleMazeRenderer implements MazeRenderer {
         sb.append('\n');
     }
 
-    private void constructRowLastCol(StringBuilder sb, int row,
-        Maze maze, Coordinate start, Coordinate end) {
+    private void constructRowLastCol(
+        StringBuilder sb, int row,
+        Maze maze, Coordinate start, Coordinate end
+    ) {
         if (start != null) {
             if (startNotMarked && start.row() == row && start.col() == maze.width() - 1) {
                 sb.append(verticalStartPath);
