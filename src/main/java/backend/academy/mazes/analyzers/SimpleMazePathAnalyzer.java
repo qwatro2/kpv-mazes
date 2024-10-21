@@ -22,6 +22,7 @@ public class SimpleMazePathAnalyzer implements MazePathAnalyzer {
                     pathStatistics.incrementBadPassages();
                     break;
                 case EMPTY:
+                    break;
             }
         }
 
