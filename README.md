@@ -1,5 +1,5 @@
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/qwatro2/kpv-mazes/blob/master/README.md)
-[![pt-br](https://img.shields.io/badge/lang-ru-green.svg)](https://github.com/qwatro2/kpv-mazes/blob/master/README.ru.md)
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/qwatro2/kpv-mazes/blob/main/README.md)
+[![pt-br](https://img.shields.io/badge/lang-ru-green.svg)](https://github.com/qwatro2/kpv-mazes/blob/main/README.ru.md)
 
 # Mazes
 
